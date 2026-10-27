@@ -1,0 +1,143 @@
+/* ---------- Design tokens: one palette and one set of line weights for every diagram ---------- */
+:root {
+  --font: "Open Sans", Helvetica, Arial, sans-serif;
+
+  --ink: #3d3d4a;
+  --paper: #ffffff;
+  --page: #f6f4f1;
+  --hover: #fff2c2;
+
+  /* Pastel fills */
+  --grey: #e6e4ee;
+  --cyan: #bdeef0;
+  --pink: #fbc8d2;
+  --peach: #ffd9b8;
+  --lime: #cdeab5;
+  --sky: #d6e6f8;
+  --lilac: #e7defa;
+  --red: #f6b3b3;
+  --red-light: #fde4e4;
+  --lavender: #c9c6f2;
+
+  /* Deeper pastel tones for text, borders and arrows that sit on white */
+  --red-deep: #e07a7a;
+  --orange-deep: #e8984f;
+  --purple-deep: #a88bd3;
+  --blue-deep: #7ea6e6;
+  --accent: var(--red-deep);
+
+  --line: 1.5px;
+  --line-bold: 4px;
+
+  /* Corner radii, in the same proportion as image 014 */
+  --radius: 8px;
+  --radius-large: 14px;
+}
+
+/* ---------- Page ---------- */
+body {
+  margin: 0;
+  padding: 24px 16px;
+  background: var(--page);
+  color: var(--ink);
+  font-family: var(--font);
+  text-align: center;
+}
+
+section {
+  max-width: 1040px;
+  margin: 0 auto 32px;
+  padding: 8px 16px 24px;
+  background: var(--paper);
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+}
+
+h2 { font-size: 18px; font-weight: 600; }
+
+/* ---------- Shared SVG defaults ---------- */
+svg { max-width: 100%; height: auto; }
+svg text { fill: var(--ink); text-anchor: middle; }
+svg line, svg rect, svg circle, svg path, svg polygon {
+  stroke: var(--ink);
+  stroke-width: var(--line);
+  vector-effect: non-scaling-stroke;
+}
+marker path { fill: var(--ink); stroke: none; }
+
+/* Hovering one .item fades its siblings */
+.item { cursor: pointer; transition: opacity 0.2s; }
+.focus:has(.item:hover) .item:not(:hover) { opacity: 0.25; }
+
+/* ---------- 001 Concept Map ---------- */
+#concept-map { font-size: 17px; }
+#concept-map rect { fill: var(--paper); }
+#concept-map .branch rect { rx: var(--radius); }
+#concept-map .branch .course { rx: var(--radius-large); }
+#concept-map line { marker-end: url(#arrow-cm); }
+#concept-map .grey { fill: var(--grey); }
+#concept-map .cyan { fill: var(--cyan); }
+#concept-map .pink { fill: var(--pink); }
+#concept-map .peach { fill: var(--peach); }
+#concept-map .lime { fill: var(--lime); }
+#concept-map .branch:hover rect { stroke-width: var(--line-bold); }
+
+/* ---------- 002 Binary Heap ---------- */
+#heap { font-size: 16px; }
+#heap circle { fill: var(--sky); }
+#heap line.hl { stroke: var(--accent); stroke-width: var(--line-bold); }
+#heap .node { cursor: pointer; }
+#heap .node:hover circle { fill: var(--hover); }
+#heap .index { font-size: 13px; text-anchor: end; }
+
+/* ---------- 004 Recursion Tree ---------- */
+#recursion { font-size: 14px; }
+#recursion .arrow { marker-end: url(#arrow-rt); }
+#recursion .span { marker-start: url(#arrow-rt); }
+#recursion .dashed { stroke-dasharray: 4 3; }
+
+/* ---------- 007 Merge Sort ---------- */
+#merge { font-size: 28px; }
+#merge rect { fill: var(--paper); rx: var(--radius-large); }
+#merge .item:hover rect { fill: var(--hover); }
+#merge line { stroke-width: var(--line-bold); }
+#merge tspan.red, #merge marker .red { fill: var(--red-deep); }
+#merge tspan.orange { fill: var(--orange-deep); }
+#merge marker .purple { fill: var(--purple-deep); }
+#merge marker .blue { fill: var(--blue-deep); }
+#merge line.red { stroke: var(--red-deep); }
+#merge line.purple { stroke: var(--purple-deep); }
+#merge line.blue { stroke: var(--blue-deep); }
+
+/* ---------- 008 Stack ---------- */
+#stack { font-size: 11px; }
+#stack .stop-light { stop-color: var(--red-light); }
+#stack .stop-strong { stop-color: var(--red); }
+#stack .block { fill: url(#block-fill); stroke: var(--red-deep); rx: 5px; }
+#stack .item:hover .block { stroke: var(--ink); stroke-width: var(--line-bold); }
+#stack line { marker-end: url(#arrow-open); }
+#stack marker path { fill: none; stroke: var(--ink); }
+#stack .container { fill: none; stroke: var(--lavender); stroke-width: var(--line-bold); }
+#stack .base { fill: var(--lavender); stroke: none; }
+
+/* ---------- 010 Directed Graph ---------- */
+#graph { font-size: 26px; }
+#graph line { stroke-width: var(--line-bold); }
+#graph line.directed { marker-end: url(#arrow-graph); }
+#graph .edge { transition: opacity 0.2s; }
+#graph .edge.dim { opacity: 0.15; }
+#graph circle { fill: var(--lilac); }
+#graph .vertex { cursor: pointer; font-size: 28px; }
+#graph .vertex:hover circle { fill: var(--hover); }
+#graph .vertex.selected circle { fill: var(--hover); stroke: var(--accent); stroke-width: var(--line-bold); }
+
+/* ---------- 014 Seaborn Hierarchy ---------- */
+#seaborn { font-size: 18px; }
+#seaborn rect { fill: var(--bg); stroke: var(--c); }
+#seaborn text { fill: var(--c); }
+#seaborn line { stroke: var(--c); }
+#seaborn .box:hover rect { fill: var(--paper); stroke-width: var(--line-bold); }
+#seaborn .header { font-size: 22px; }
+#seaborn .blue { --c: #4a6fa5; --bg: #dde7f7; }
+#seaborn .orange { --c: #c0703f; --bg: #fbe6d8; }
+#seaborn .green { --c: #4f8a5b; --bg: #dff0e2; }
